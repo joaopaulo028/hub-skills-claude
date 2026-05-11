@@ -1,7 +1,28 @@
 // Fonte de verdade do Hub. Editar este arquivo para adicionar/remover/atualizar skills.
 // Carregado via <script> no index.html (não usar fetch, pra funcionar em file://).
 window.SKILLS_DATA = {
-  "repositorios": [],
+  "repositorios": [
+    {
+      "nome": "Anthropic",
+      "descricao": "Buscar padrões oficiais e exemplos confiáveis",
+      "link": "https://github.com/anthropics"
+    },
+    {
+      "nome": "Skills Directory",
+      "descricao": "Explorar e descobrir novas skills",
+      "link": "https://skills.sh/"
+    },
+    {
+      "nome": "SkillsMP",
+      "descricao": "Comparar opções de skills em marketplace",
+      "link": "https://skillsmp.com/"
+    },
+    {
+      "nome": "LobeHub",
+      "descricao": "Exploração visual de skills",
+      "link": "https://lobehub.com/skills"
+    }
+  ],
   "skills": [
     {
       "id": "init",

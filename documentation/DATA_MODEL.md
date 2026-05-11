@@ -106,16 +106,15 @@ Cards exibidos na seção `REPOSITÓRIOS BASE` no topo da página.
 | `nome` | string | sim | Nome do repositório (ex.: `Anthropic Skills`). |
 | `descricao` | string | não | Descrição curta exibida abaixo do nome. |
 | `link` | string | sim | URL externa (abre em nova aba). |
-| `icone` | string | não | Emoji ou caractere usado como ícone. Default: `📦`. |
+| `icone` | string | não | Atualmente ignorado — todos os cards usam ícone SVG de banco de dados, fiel ao SkillVault. Reservado para futuras customizações por repo. |
 
 ### Exemplo
 
 ```js
 {
-  nome: "Anthropic Skills",
-  descricao: "Repositório oficial",
-  link: "https://github.com/anthropics/claude-plugins-official",
-  icone: "🤖"
+  nome: "Anthropic",
+  descricao: "Buscar padrões oficiais e exemplos confiáveis",
+  link: "https://github.com/anthropics"
 }
 ```
 

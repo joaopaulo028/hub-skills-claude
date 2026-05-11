@@ -3,21 +3,43 @@
    Renderiza os cards de skill e a grid de repositórios base.
 ========================================================= */
 
+/* Ícones inline (Lucide). Usar SVG no DOM evita dependência externa
+   e permite herdar `currentColor` direto do CSS. */
+const ICON_DATABASE = `
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+    <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+    <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+  </svg>
+`;
+
+const ICON_ARROW_RIGHT = `
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="5" y1="12" x2="19" y2="12"/>
+    <polyline points="12 5 19 12 12 19"/>
+  </svg>
+`;
+
 /**
- * Renderiza os 4 cards de repositório (ou mantém o empty-state
- * quando não há nenhum repositório cadastrado em SKILLS_DATA.repositorios).
+ * Renderiza os cards de repositório base (ou mantém o empty-state
+ * do HTML quando state.repos está vazio).
  */
 function renderRepos() {
   const el = document.getElementById('repos-grid');
-  if (!state.repos.length) return; // o empty-state vem do HTML
+  if (!state.repos.length) return;
 
   el.innerHTML = state.repos.map((r) => `
     <a class="repo-card" href="${escapeHTML(r.link)}" target="_blank" rel="noopener">
-      <div class="repo-card-icon">${escapeHTML(r.icone || '📦')}</div>
+      <div class="repo-card-icon">${ICON_DATABASE}</div>
       <div class="repo-card-info">
         <div class="repo-card-name">${escapeHTML(r.nome)}</div>
         <div class="repo-card-desc">${escapeHTML(r.descricao || '')}</div>
       </div>
+      <span class="repo-card-arrow">${ICON_ARROW_RIGHT}</span>
     </a>
   `).join('');
 }

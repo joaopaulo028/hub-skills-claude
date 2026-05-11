@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .repo-card:hover {
   border-color: var(--border-strong);
@@ -42,17 +42,18 @@
 }
 
 .repo-card-icon {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-sm);
-  background: var(--bg);
+  background: var(--repo-icon-bg);
+  color: var(--repo-icon-text);
   display: grid;
   place-items: center;
-  font-size: 16px;
   flex-shrink: 0;
 }
+.repo-card-icon svg { display: block; }
 
-.repo-card-info { min-width: 0; }
+.repo-card-info { flex: 1; min-width: 0; }
 .repo-card-name {
   font-size: 13px;
   font-weight: 600;
@@ -67,6 +68,21 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Flecha que aparece no hover (matches SkillVault group-hover:opacity-100) */
+.repo-card-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.repo-card:hover .repo-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* ---------- Skills grid ---------- */

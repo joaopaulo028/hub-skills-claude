@@ -29,6 +29,10 @@
   --badge-customizada-bg: #ffedd5;
   --badge-customizada-text: #9a3412;
 
+  /* Cores — ícone do card de repositório base */
+  --repo-icon-bg: #eff6ff;
+  --repo-icon-text: #2563eb;
+
   /* Cores — status (instalada / wishlist) */
   --status-instalada-bg: #dcfce7;
   --status-instalada-text: #166534;
