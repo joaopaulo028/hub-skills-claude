@@ -1,0 +1,55 @@
+/* =========================================================
+   tokens.css
+   Variáveis de design (cores, fontes, espaçamentos, raios).
+   Edite aqui pra mudar a paleta global do app.
+========================================================= */
+
+:root {
+  /* Cores — superfícies e texto */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --border-strong: #d4d4d8;
+  --text: #18181b;
+  --text-muted: #71717a;
+  --text-soft: #a1a1aa;
+
+  /* Cores — chips de filtro */
+  --chip-bg: #ffffff;
+  --chip-active-bg: #18181b;
+  --chip-active-text: #ffffff;
+  --chip-count-bg: #f4f4f5;
+  --chip-active-count-bg: #3f3f46;
+
+  /* Cores — badges por tipo de skill */
+  --badge-nativa-bg: #dbeafe;
+  --badge-nativa-text: #1e40af;
+  --badge-plugin-bg: #ede9fe;
+  --badge-plugin-text: #5b21b6;
+  --badge-customizada-bg: #ffedd5;
+  --badge-customizada-text: #9a3412;
+
+  /* Cores — status (instalada / wishlist) */
+  --status-instalada-bg: #dcfce7;
+  --status-instalada-text: #166534;
+  --status-wishlist-bg: #fef3c7;
+  --status-wishlist-text: #854d0e;
+
+  /* Raios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+  /* Layout */
+  --container: 1120px;
+
+  /* Tipografia (idêntica ao SkillVault) */
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}

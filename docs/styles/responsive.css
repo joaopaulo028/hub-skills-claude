@@ -1,0 +1,17 @@
+/* =========================================================
+   responsive.css
+   Media queries para tablet e mobile.
+========================================================= */
+
+@media (max-width: 900px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .repos-grid  { grid-template-columns: repeat(2, 1fr); }
+  .header-title { font-size: 26px; }
+}
+
+@media (max-width: 560px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .repos-grid  { grid-template-columns: 1fr; }
+  .header { padding-top: 40px; }
+  .modal-content { padding: 24px 20px; }
+}

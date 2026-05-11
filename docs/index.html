@@ -3,96 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkillFlix — Hub de Skills do Claude</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Meu Hub de Skills do Claude</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS modular: a ordem importa (tokens → base → components → responsive) -->
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/modal.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="nav-left">
-      <div class="logo">
-        <span class="logo-text">Skill<span class="accent">/</span>Flix</span>
-      </div>
-      <nav class="nav-links">
-        <a href="#hero" class="active">Início</a>
-        <a href="#trilhas">Trilhas</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#progresso">Meu Progresso</a>
-      </nav>
+  <header class="header">
+    <h1 class="header-title">Meu Hub de Skills do Claude</h1>
+    <p class="header-subtitle">Inventário pessoal · curado por João Paulo</p>
+
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input type="text" id="search" placeholder="Buscar skill..." autocomplete="off" />
     </div>
-    <div class="nav-right">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="search" placeholder="Buscar skill..." />
-      </div>
+
+    <div class="filters" id="filters">
+      <!-- chips renderizados via JS -->
     </div>
   </header>
 
-  <section class="hero" id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <span class="hero-badge">Hub de estudos · Skills do Claude</span>
-      <h1>Domine as <span class="underline">Skills</span> que <span class="accent">moldam</span> o seu Claude.</h1>
-      <p class="hero-sub">Trilhas curadas, exemplos práticos e progresso acompanhado — do iniciante ao avançado.</p>
-      <div class="hero-stats">
-        <div><strong id="stat-total">0</strong><span>skills</span></div>
-        <div><strong id="stat-dominado">0</strong><span>dominadas</span></div>
-        <div><strong id="stat-progresso">0%</strong><span>progresso</span></div>
-      </div>
-      <div class="hero-actions">
-        <a href="#trilhas" class="btn btn-primary">Começar Trilha</a>
-        <a href="#catalogo" class="btn btn-ghost">Explorar Catálogo</a>
-      </div>
-    </div>
-  </section>
+  <main class="container">
 
-  <main>
-    <section id="trilhas" class="row-section dark">
-      <h2 class="row-title">Trilhas recomendadas</h2>
-      <p class="row-subtitle" style="color:var(--on-dark-dim);">Caminhos curados para você não se perder.</p>
-      <div id="trilhas-container" class="trilhas-grid"></div>
-    </section>
-
-    <section id="catalogo" class="row-section">
-      <div class="filters">
-        <div>
-          <h2 class="row-title">Catálogo completo</h2>
-          <p class="row-subtitle">Todas as skills disponíveis, organizadas por categoria.</p>
-        </div>
-        <div class="filter-chips" id="filter-chips"></div>
-      </div>
-      <div id="categorias-container"></div>
-    </section>
-
-    <section id="progresso" class="row-section">
-      <h2 class="row-title">Meu progresso</h2>
-      <p class="row-subtitle">Acompanhe sua jornada de estudos.</p>
-      <div class="progress-card">
-        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
-        <div class="progress-legend">
-          <span><span class="dot dot-none"></span> Não iniciado<strong id="count-none">0</strong></span>
-          <span><span class="dot dot-doing"></span> Estudando<strong id="count-doing">0</strong></span>
-          <span><span class="dot dot-done"></span> Dominado<strong id="count-done">0</strong></span>
+    <section class="section">
+      <h2 class="section-title">REPOSITÓRIOS BASE</h2>
+      <div id="repos-grid" class="repos-grid">
+        <div class="empty-state">
+          <p>Nenhum repositório base cadastrado ainda.</p>
+          <p class="empty-hint">Quando você me mandar os links, eu adiciono aqui.</p>
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        SKILLS
+        <span class="section-count" id="results-count">0 resultados</span>
+      </h2>
+      <div id="skills-grid" class="skills-grid">
+        <!-- cards renderizados via JS -->
+      </div>
+    </section>
+
   </main>
 
-  <div id="modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content">
-      <button class="modal-close" id="modal-close">×</button>
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">×</button>
       <div id="modal-body"></div>
     </div>
   </div>
 
-  <footer>
-    <p>Construído com ❤️ para o hub de estudos do João Paulo · 2026</p>
+  <footer class="footer">
+    <p>Meu Hub de Skills · Curadoria pessoal · 2026</p>
   </footer>
 
-  <script src="app.js"></script>
+  <!-- Dados (define window.SKILLS_DATA) -->
+  <script src="data/skills.js"></script>
+
+  <!-- JS modular: a ordem importa (state e utils antes; main por último) -->
+  <script src="scripts/state.js"></script>
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/filters.js"></script>
+  <script src="scripts/cards.js"></script>
+  <script src="scripts/modal.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>

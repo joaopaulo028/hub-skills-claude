@@ -1,0 +1,60 @@
+/* =========================================================
+   base.css
+   Reset, body, tipografia base.
+========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input { font-family: inherit; }
+
+/* Container central usado pelo <main> */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 16px 24px 64px;
+}
+
+/* Cabeçalho de seção (ex.: REPOSITÓRIOS BASE, SKILLS) */
+.section { margin-top: 40px; }
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.section-count {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+
+/* Footer global */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-soft);
+  font-size: 12px;
+  margin-top: 40px;
+}
+.footer p { margin: 0; }
