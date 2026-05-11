@@ -5,10 +5,12 @@
 ========================================================= */
 
 (function init() {
-  // Carrega dados (window.SKILLS_DATA vem do data/skills.js)
   const data = window.SKILLS_DATA || { skills: [], repositorios: [] };
-  state.skills = data.skills || [];
-  state.repos  = data.repositorios || [];
+  state.skills = (data.skills || []).map((s) => ({
+    ...s,
+    _haystack: `${s.nome} ${s.descricao} ${s.output} ${s.cases}`.toLowerCase(),
+  }));
+  state.repos = data.repositorios || [];
 
   bindGlobalUI();
   renderFilters();
@@ -29,6 +31,9 @@ function bindGlobalUI() {
     el.addEventListener('click', closeModal)
   );
   document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('modal');
+    if (modal.classList.contains('hidden')) return;
     if (e.key === 'Escape') closeModal();
+    if (e.key === 'Tab') trapFocus(e, modal);
   });
 }

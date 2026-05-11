@@ -64,10 +64,7 @@ function applyFilters() {
   return state.skills.filter((s) => {
     if (state.filterType   !== 'all' && s.tipo   !== state.filterType)   return false;
     if (state.filterStatus !== 'all' && s.status !== state.filterStatus) return false;
-    if (state.query) {
-      const haystack = `${s.nome} ${s.descricao} ${s.output} ${s.cases}`.toLowerCase();
-      if (!haystack.includes(state.query)) return false;
-    }
+    if (state.query && !s._haystack.includes(state.query)) return false;
     return true;
   });
 }

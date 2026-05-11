@@ -30,7 +30,16 @@ const ICON_ARROW_RIGHT = `
  */
 function renderRepos() {
   const el = document.getElementById('repos-grid');
-  if (!state.repos.length) return;
+
+  if (!state.repos.length) {
+    el.innerHTML = `
+      <div class="empty-state">
+        <p>Nenhum repositório base cadastrado ainda.</p>
+        <p class="empty-hint">Quando você me mandar os links, eu adiciono aqui.</p>
+      </div>
+    `;
+    return;
+  }
 
   el.innerHTML = state.repos.map((r) => `
     <a class="repo-card" href="${escapeHTML(r.link)}" target="_blank" rel="noopener">

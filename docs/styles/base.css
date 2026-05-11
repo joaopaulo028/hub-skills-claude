@@ -20,6 +20,8 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input { font-family: inherit; }
 
+.no-scroll { overflow: hidden; }
+
 /* Container central usado pelo <main> */
 .container {
   max-width: var(--container);

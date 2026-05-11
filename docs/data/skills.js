@@ -194,9 +194,9 @@ window.SKILLS_DATA = {
         "gsd-verify-work",
         "gsd-ship",
         "gsd-debug",
-        "gsd-code-review",
-        "gsd-... (+55 outras)"
-      ]
+        "gsd-code-review"
+      ],
+      "subskillsMore": 55
     }
   ]
 }

@@ -113,6 +113,11 @@
   color: var(--text);
   font-family: var(--font-mono);
 }
+.modal-subskills .subskill-more {
+  font-family: var(--font-sans);
+  color: var(--text-muted);
+  font-style: italic;
+}
 
 .modal-link {
   display: inline-block;

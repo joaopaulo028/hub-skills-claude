@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'; base-uri 'self';" />
   <title>Meu Hub de Skills do Claude</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,7 +25,7 @@
 
     <div class="search-wrap">
       <span class="search-icon" aria-hidden="true">🔍</span>
-      <input type="text" id="search" placeholder="Buscar skill..." autocomplete="off" />
+      <input type="text" id="search" placeholder="Buscar skill..." autocomplete="off" aria-label="Buscar skill" />
     </div>
 
     <div class="filters" id="filters">
@@ -36,12 +37,7 @@
 
     <section class="section">
       <h2 class="section-title">REPOSITÓRIOS BASE</h2>
-      <div id="repos-grid" class="repos-grid">
-        <div class="empty-state">
-          <p>Nenhum repositório base cadastrado ainda.</p>
-          <p class="empty-hint">Quando você me mandar os links, eu adiciono aqui.</p>
-        </div>
-      </div>
+      <div id="repos-grid" class="repos-grid"></div>
     </section>
 
     <section class="section">
@@ -59,7 +55,7 @@
   <div id="modal" class="modal hidden" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
     <div class="modal-content" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modal-close" aria-label="Fechar">×</button>
+      <button type="button" class="modal-close" id="modal-close" aria-label="Fechar">×</button>
       <div id="modal-body"></div>
     </div>
   </div>
