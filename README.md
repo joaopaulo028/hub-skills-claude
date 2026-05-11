@@ -1,93 +1,107 @@
-# 🎯 Hub de Skills do Claude
+# Meu Hub de Skills do Claude
 
-![Status](https://img.shields.io/badge/status-em%20constru%C3%A7%C3%A3o-yellow) ![Nível](https://img.shields.io/badge/n%C3%ADvel-iniciante-blue) ![Idioma](https://img.shields.io/badge/idioma-pt--br-green) ![Atualizado](https://img.shields.io/badge/atualizado-2026--05--10-lightgrey)
+Inventário pessoal das Skills do Claude que tenho instaladas e das que quero instalar depois. Curado por João Paulo.
 
-> 💡 **Bem-vindo, João Paulo!** Este é o seu hub pessoal de estudos sobre **Skills do Claude** — um espaço organizado para você dominar como turbinar o Claude (e a si mesmo) com Skills nativas, customizadas, hooks, MCP e workflows de produtividade.
+> Projeto pessoal sem dependências, sem build, sem servidor. HTML + CSS + JS vanilla.
 
----
+## O que é
 
-## 🗺️ Mapa do Hub
+Um catálogo visual onde consulto rapidamente:
 
-| 📁 Pasta | 📚 Conteúdo | 🎯 Quando ler |
-|---------|-------------|--------------|
-| [00-comece-aqui](./00-comece-aqui/README.md) | Roteiro de estudos + glossário | **Primeira parada** |
-| [01-fundamentos](./01-fundamentos/README.md) | O que são Skills, como funcionam, anatomia | Para entender a base |
-| [02-skills-nativas](./02-skills-nativas/README.md) | Referência de cada skill que já vem pronta | Para usar no dia a dia |
-| [03-criando-skills](./03-criando-skills/README.md) | Como construir suas próprias Skills | Quando dominar o básico |
-| [04-configuracao](./04-configuracao/README.md) | settings.json, hooks, permissões, MCP | Para configurar o ambiente |
-| [05-casos-de-uso](./05-casos-de-uso/README.md) | Workflows práticos e redução de custo | Para aplicar de verdade |
-| [06-plugins](./06-plugins/README.md) | Plugins instalados via marketplace (ex.: Superpowers) | Para estender o Claude Code |
-| [cheatsheets](./cheatsheets/README.md) | Referências rápidas | Consulta em segundos |
-| [exemplos](./exemplos/README.md) | Skills prontas para estudar | Aprender por exemplo |
-| [diario](./diario/README.md) | Registro do seu progresso | Sempre que estudar |
+- ✅ Quais Skills já estão **instaladas** na minha máquina/Claude
+- 📌 Quais Skills mapeei pra **instalar depois** (wishlist)
 
----
+Não é um hub de estudos — é um centro de dados pessoal pra não perder o controle do que tenho e do que quero.
 
-## 🚦 Trilhas de Estudo
+Inspirado visualmente no [SkillVault da NoCode StartUp](https://skills-nocode-startup.lovable.app/).
 
-### 🟢 Trilha 1 — Fundamentos (recomendada para começar)
+## Como rodar
 
-```text
-00-comece-aqui  →  01-fundamentos  →  02-skills-nativas
+```sh
+open docs/index.html
 ```
 
-**Objetivo**: entender o que é uma Skill e usar as nativas com confiança.
-**Tempo estimado**: 2–3 horas.
+Ou duplo clique no arquivo. Sem npm, sem servidor, sem build.
 
-### 🟡 Trilha 2 — Criando suas Skills
+Para hot-reload durante desenvolvimento, use a extensão [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) do VSCode.
 
-```text
-03-criando-skills  →  exemplos/  →  diario/
+## Estrutura
+
+```
+.
+├── README.md                  ← este arquivo
+├── CHANGELOG.md               ← histórico de mudanças
+├── .editorconfig              ← convenções de editor
+├── .gitignore
+│
+├── documentation/             ← documentação técnica do projeto
+│   ├── ARCHITECTURE.md        ← como o app funciona, fluxo de dados
+│   ├── DATA_MODEL.md          ← schema completo de skills.js
+│   ├── CONTRIBUTING.md        ← como adicionar/editar skills
+│   └── DESIGN.md              ← tokens visuais, paleta, anatomia
+│
+└── docs/                      ← o web app (servido pelo GitHub Pages)
+    ├── index.html             ← entry point
+    ├── styles/                ← CSS modular
+    │   ├── tokens.css
+    │   ├── base.css
+    │   ├── header.css
+    │   ├── cards.css
+    │   ├── modal.css
+    │   └── responsive.css
+    ├── scripts/               ← JS modular
+    │   ├── state.js
+    │   ├── utils.js
+    │   ├── filters.js
+    │   ├── cards.js
+    │   ├── modal.js
+    │   └── main.js
+    └── data/
+        └── skills.js          ← fonte única de verdade (window.SKILLS_DATA)
 ```
 
-**Objetivo**: construir sua primeira Skill funcional.
-**Tempo estimado**: 3–5 horas.
+## Documentação
 
-### 🔴 Trilha 3 — Harness avançado
+| Documento | Para quem | Conteúdo |
+|-----------|-----------|----------|
+| [ARCHITECTURE.md](documentation/ARCHITECTURE.md) | Devs novos no projeto | Stack, fluxo de dados, ordem de carregamento, decisões de design |
+| [DATA_MODEL.md](documentation/DATA_MODEL.md) | Quem vai editar dados | Schema de Skill e Repositorio, exemplos, validação |
+| [CONTRIBUTING.md](documentation/CONTRIBUTING.md) | Quem vai modificar código | Workflows comuns, convenções, deploy |
+| [DESIGN.md](documentation/DESIGN.md) | Quem vai mexer no visual | Tokens, paleta, tipografia, anatomia de componentes |
 
-```text
-04-configuracao  →  05-casos-de-uso
-```
+## Como atualizar o catálogo
 
-**Objetivo**: dominar hooks, MCP e workflows de produtividade.
-**Tempo estimado**: 5+ horas.
+### Manual
 
-### 🦸 Trilha 4 — Metodologia Superpowers
+Edite `docs/data/skills.js` e recarregue o browser. Schema completo em [DATA_MODEL.md](documentation/DATA_MODEL.md).
 
-```text
-06-plugins  →  06-plugins/superpowers.md
-```
+### Pelo Claude
 
-**Objetivo**: instalar o plugin Superpowers e dominar o fluxo brainstorming → plano → TDD → debug → review → merge.
-**Tempo estimado**: 2–4 horas (+ prática).
+Peça em linguagem natural:
+- "Instalei a skill X, adiciona no Hub"
+- "Coloca a skill Y como 'quero instalar'"
+- "Removi a skill Z do Hub"
+
+O Claude tem instruções persistentes pra editar o `skills.js` automaticamente nesses gatilhos.
+
+## Deploy (GitHub Pages)
+
+A pasta `docs/` é servida nativamente:
+
+1. **Settings → Pages** no repositório
+2. **Source**: Deploy from a branch
+3. **Branch**: `main` / `/docs`
+4. Save
+
+Cada push em `main` re-deploya. Detalhes em [CONTRIBUTING.md](documentation/CONTRIBUTING.md).
+
+## Stack
+
+- HTML5 + CSS3 + JavaScript ES2015+ (vanilla)
+- Sem framework, sem build, sem dependências
+- Fontes via Google Fonts (Inter)
+- Compatível com `file://` e GitHub Pages
 
 ---
 
-## ⚡ Acesso Rápido
-
-- 📖 [Glossário](./00-comece-aqui/glossario.md) — termos que você vai ver o tempo todo
-- 📋 [Cheatsheet de Skills nativas](./cheatsheets/skills-nativas-resumo.md) — todas em uma tabela
-- 📝 [Diário](./diario/README.md) — registre o que aprendeu
-
----
-
-## 🎨 Como este hub está organizado
-
-- **Pastas numeradas** (`00`, `01`, `02`...) → indicam **ordem sugerida de leitura**
-- **Pastas sem número** (`cheatsheets`, `exemplos`, `diario`) → recursos de **consulta** ou **registro**
-- Cada pasta tem um `README.md` que serve de **índice** daquele tema
-- Todos os documentos são em **português** e em **markdown** (visualize com preview do VSCode: `Cmd+Shift+V`)
-
-> ⚠️ **Dica de navegação**: clique nos links das tabelas acima — todos os caminhos são relativos e funcionam direto no VSCode.
-
----
-
-## 🤝 Como evoluir o hub
-
-Sempre que aprender algo novo:
-
-1. ✍️ Registre no [diário](./diario/README.md) (data + o que estudou + dúvidas)
-2. 📌 Se for um conceito-chave, atualize o [glossário](./00-comece-aqui/glossario.md)
-3. 🧪 Se for uma skill que você criou, salve em [exemplos/](./exemplos/README.md)
-
-> 💬 Pode me chamar a qualquer momento para te ajudar a preencher, revisar ou expandir qualquer parte deste hub.
+_Última atualização: 2026-05-11_
