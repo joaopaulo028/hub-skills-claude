@@ -45,6 +45,24 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* Badges por tipo de skill */
+  --color-badge-nativa: #dbeafe;
+  --color-badge-nativa-foreground: #1e40af;
+  --color-badge-plugin: #ede9fe;
+  --color-badge-plugin-foreground: #5b21b6;
+  --color-badge-customizada: #ffedd5;
+  --color-badge-customizada-foreground: #9a3412;
+
+  /* Status (instalada / wishlist) */
+  --color-status-instalada: #dcfce7;
+  --color-status-instalada-foreground: #166534;
+  --color-status-wishlist: #fef3c7;
+  --color-status-wishlist-foreground: #854d0e;
+
+  /* Ícone de card de repositório */
+  --color-repo-icon: #eff6ff;
+  --color-repo-icon-foreground: #2563eb;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
