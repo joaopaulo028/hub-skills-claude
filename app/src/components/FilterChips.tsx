@@ -87,11 +87,11 @@ export function FilterChips({
   onFavoritesToggle,
 }: FilterChipsProps) {
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-col items-center gap-2.5">
       <div
         role="group"
         aria-label="Filtrar por tipo"
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap items-center justify-center gap-2"
       >
         {(Object.keys(TYPE_LABELS) as SkillType[]).map((t) => (
           <Chip
@@ -108,7 +108,7 @@ export function FilterChips({
       <div
         role="group"
         aria-label="Filtrar por status"
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap items-center justify-center gap-2"
       >
         {(Object.keys(STATUS_LABELS) as SkillStatus[]).map((s) => (
           <Chip
@@ -125,7 +125,7 @@ export function FilterChips({
       <div
         role="group"
         aria-label="Filtrar por domínio"
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap items-center justify-center gap-2"
       >
         {(Object.keys(TAG_LABELS) as SkillDomain[]).map((t) => (
           <Chip

@@ -86,8 +86,10 @@ function App() {
       <main className="mx-auto w-full max-w-6xl px-4 sm:px-6 pb-16">
         <Header />
 
-        <div className="flex flex-col gap-4">
-          <SearchBar value={filters.query} onChange={setQuery} />
+        <div className="flex flex-col items-center gap-5 pt-8">
+          <div className="w-full max-w-2xl">
+            <SearchBar value={filters.query} onChange={setQuery} />
+          </div>
           <FilterChips
             filters={filters}
             counts={counts}
