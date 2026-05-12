@@ -4,7 +4,7 @@ export type SkillDomain = 'dev' | 'design' | 'produtividade' | 'dados' | 'conteu
 
 export interface SubSkill {
   nome: string;
-  descricao: string;
+  descricao?: string;
 }
 
 export interface Skill {
@@ -18,6 +18,9 @@ export interface Skill {
   tags: SkillDomain[];
   linkRepo?: string;
   subSkills?: SubSkill[];
+  comoUsar?: string;
+  fonte?: string;
+  versao?: string;
 }
 
 export interface Repositorio {
