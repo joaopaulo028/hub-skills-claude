@@ -34,16 +34,14 @@ interface ChipProps {
   onClick: () => void;
   icon?: React.ReactNode;
   children: React.ReactNode;
-  ariaLabel?: string;
 }
 
-function Chip({ active, count, onClick, icon, children, ariaLabel }: ChipProps) {
+function Chip({ active, count, onClick, icon, children }: ChipProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      aria-label={ariaLabel}
       className={cn(
         'inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap',
         'transition-colors duration-150 ease-out',
@@ -69,6 +67,15 @@ function Chip({ active, count, onClick, icon, children, ariaLabel }: ChipProps) 
   );
 }
 
+function Separator() {
+  return (
+    <span
+      aria-hidden="true"
+      className="hidden sm:inline-block h-5 w-px bg-border mx-1 shrink-0"
+    />
+  );
+}
+
 export interface FilterChipsProps {
   filters: Filters;
   counts: FilterCounts;
@@ -87,72 +94,59 @@ export function FilterChips({
   onFavoritesToggle,
 }: FilterChipsProps) {
   return (
-    <div className="flex flex-col items-center gap-2.5">
-      <div
-        role="group"
-        aria-label="Filtrar por tipo"
-        className="flex flex-wrap items-center justify-center gap-2"
-      >
-        {(Object.keys(TYPE_LABELS) as SkillType[]).map((t) => (
-          <Chip
-            key={t}
-            active={filters.types.includes(t)}
-            count={counts.types[t]}
-            onClick={() => onTypeToggle(t)}
-          >
-            {TYPE_LABELS[t]}
-          </Chip>
-        ))}
-      </div>
-
-      <div
-        role="group"
-        aria-label="Filtrar por status"
-        className="flex flex-wrap items-center justify-center gap-2"
-      >
-        {(Object.keys(STATUS_LABELS) as SkillStatus[]).map((s) => (
-          <Chip
-            key={s}
-            active={filters.statuses.includes(s)}
-            count={counts.statuses[s]}
-            onClick={() => onStatusToggle(s)}
-          >
-            {STATUS_LABELS[s]}
-          </Chip>
-        ))}
-      </div>
-
-      <div
-        role="group"
-        aria-label="Filtrar por domínio"
-        className="flex flex-wrap items-center justify-center gap-2"
-      >
-        {(Object.keys(TAG_LABELS) as SkillDomain[]).map((t) => (
-          <Chip
-            key={t}
-            active={filters.tags.includes(t)}
-            count={counts.tags[t]}
-            onClick={() => onTagToggle(t)}
-          >
-            {TAG_LABELS[t]}
-          </Chip>
-        ))}
+    <div
+      role="toolbar"
+      aria-label="Filtros"
+      className="flex flex-wrap items-center gap-2"
+    >
+      {(Object.keys(TYPE_LABELS) as SkillType[]).map((t) => (
         <Chip
-          active={filters.onlyFavorites}
-          count={counts.favorites}
-          onClick={onFavoritesToggle}
-          icon={
-            <Star
-              className={cn(
-                'size-3.5',
-                filters.onlyFavorites && 'fill-current',
-              )}
-            />
-          }
+          key={`type-${t}`}
+          active={filters.types.includes(t)}
+          count={counts.types[t]}
+          onClick={() => onTypeToggle(t)}
         >
-          Favoritas
+          {TYPE_LABELS[t]}
         </Chip>
-      </div>
+      ))}
+      <Separator />
+      {(Object.keys(STATUS_LABELS) as SkillStatus[]).map((s) => (
+        <Chip
+          key={`status-${s}`}
+          active={filters.statuses.includes(s)}
+          count={counts.statuses[s]}
+          onClick={() => onStatusToggle(s)}
+        >
+          {STATUS_LABELS[s]}
+        </Chip>
+      ))}
+      <Separator />
+      {(Object.keys(TAG_LABELS) as SkillDomain[]).map((t) => (
+        <Chip
+          key={`tag-${t}`}
+          active={filters.tags.includes(t)}
+          count={counts.tags[t]}
+          onClick={() => onTagToggle(t)}
+        >
+          {TAG_LABELS[t]}
+        </Chip>
+      ))}
+      <Separator />
+      <Chip
+        active={filters.onlyFavorites}
+        count={counts.favorites}
+        onClick={onFavoritesToggle}
+        icon={
+          <Star
+            className={cn(
+              'size-3.5',
+              filters.onlyFavorites && 'fill-current',
+            )}
+          />
+        }
+      >
+        Favoritas
+      </Chip>
     </div>
   );
 }

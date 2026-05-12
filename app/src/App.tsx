@@ -83,13 +83,12 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main className="mx-auto w-full max-w-6xl px-4 sm:px-6 pb-16">
-        <Header />
+      <Header>
+        <SearchBar value={filters.query} onChange={setQuery} />
+      </Header>
 
-        <div className="flex flex-col items-center gap-5 pt-8">
-          <div className="w-full max-w-2xl">
-            <SearchBar value={filters.query} onChange={setQuery} />
-          </div>
+      <main className="mx-auto w-full max-w-6xl px-4 sm:px-5 py-8">
+        <div className="mb-8">
           <FilterChips
             filters={filters}
             counts={counts}
