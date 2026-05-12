@@ -1,4 +1,4 @@
-import { Database } from 'lucide-react';
+import { ArrowRight, Database } from 'lucide-react';
 import type { Repositorio } from '@/types';
 
 export interface RepoCardProps {
@@ -12,7 +12,7 @@ export function RepoCard({ repo }: RepoCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Abrir ${repo.nome} em nova aba`}
-      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_8px_24px_-6px_rgba(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div
         className="flex size-9 items-center justify-center rounded-lg shrink-0"
@@ -31,6 +31,10 @@ export function RepoCard({ repo }: RepoCardProps) {
           {repo.descricao}
         </p>
       </div>
+      <ArrowRight
+        className="size-4 shrink-0 text-muted-foreground opacity-0 -translate-x-1 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0"
+        aria-hidden="true"
+      />
     </a>
   );
 }

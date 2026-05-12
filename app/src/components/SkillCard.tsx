@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react';
+import { ArrowUpRight, Star } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -72,7 +72,7 @@ export function SkillCard({
       className={cn(
         'group relative flex flex-col rounded-xl border border-border bg-card p-5',
         'transition-all duration-200 ease-out',
-        'hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08)]',
+        'hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-[0_8px_24px_-6px_rgba(0,0,0,0.12)]',
         'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
       )}
     >
@@ -115,9 +115,15 @@ export function SkillCard({
         </Tooltip>
       </div>
 
-      <h3 className="mt-3 text-[15px] font-semibold tracking-tight text-foreground line-clamp-1">
-        {skill.nome}
-      </h3>
+      <div className="mt-3 flex items-center gap-1.5">
+        <h3 className="text-[15px] font-semibold tracking-tight text-foreground line-clamp-1">
+          {skill.nome}
+        </h3>
+        <ArrowUpRight
+          className="size-3.5 shrink-0 text-muted-foreground/0 transition-all duration-200 ease-out group-hover:text-muted-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          aria-hidden="true"
+        />
+      </div>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground line-clamp-2">
         {skill.descricao}
       </p>
