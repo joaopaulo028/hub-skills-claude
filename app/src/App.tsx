@@ -1,122 +1,149 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useDeferredValue, useMemo, useState } from 'react';
+import { toast } from 'sonner';
+import { skillsDataset } from '@/data/skills';
+import { useFilters } from '@/hooks/use-filters';
+import { useFavorites } from '@/hooks/use-favorites';
+import { useFilteredSkills } from '@/hooks/use-filtered-skills';
+import { Header } from '@/components/Header';
+import { SearchBar } from '@/components/SearchBar';
+import { FilterChips } from '@/components/FilterChips';
+import { SectionHeader } from '@/components/SectionHeader';
+import { RepoCard } from '@/components/RepoCard';
+import { SkillCard } from '@/components/SkillCard';
+import { SkillModal } from '@/components/SkillModal';
+import { EmptyState } from '@/components/EmptyState';
+import { Separator } from '@/components/ui/separator';
+import type {
+  FilterCounts,
+  Skill,
+  SkillDomain,
+  SkillStatus,
+  SkillType,
+} from '@/types';
+
+const ALL_TYPES: SkillType[] = ['nativa', 'plugin', 'customizada'];
+const ALL_STATUSES: SkillStatus[] = ['instalada', 'wishlist'];
+const ALL_TAGS: SkillDomain[] = [
+  'dev',
+  'design',
+  'produtividade',
+  'dados',
+  'conteudo',
+  'outro',
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    filters,
+    setType,
+    setStatus,
+    setTag,
+    setQuery,
+    toggleFavoritesOnly,
+    reset,
+  } = useFilters();
+  const { favorites, toggle, isFavorite } = useFavorites();
+  const [selected, setSelected] = useState<Skill | null>(null);
+
+  const deferredQuery = useDeferredValue(filters.query);
+  const deferredFilters = useMemo(
+    () => ({ ...filters, query: deferredQuery }),
+    [filters, deferredQuery],
+  );
+
+  const filteredSkills = useFilteredSkills(
+    skillsDataset.skills,
+    deferredFilters,
+    favorites,
+  );
+
+  const counts: FilterCounts = useMemo(() => {
+    const types = Object.fromEntries(
+      ALL_TYPES.map((t) => [t, 0]),
+    ) as Record<SkillType, number>;
+    const statuses = Object.fromEntries(
+      ALL_STATUSES.map((s) => [s, 0]),
+    ) as Record<SkillStatus, number>;
+    const tags = Object.fromEntries(
+      ALL_TAGS.map((t) => [t, 0]),
+    ) as Record<SkillDomain, number>;
+    for (const s of skillsDataset.skills) {
+      types[s.tipo]++;
+      statuses[s.status]++;
+      for (const t of s.tags) tags[t]++;
+    }
+    return { types, statuses, tags, favorites: favorites.size };
+  }, [favorites]);
+
+  const handleFavoriteToggle = (id: string) => {
+    const wasFavorite = isFavorite(id);
+    toggle(id);
+    toast(wasFavorite ? 'Removido dos favoritos' : 'Adicionado aos favoritos');
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-background text-foreground">
+      <main className="container mx-auto max-w-[1120px] px-6 pb-16">
+        <Header />
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div className="space-y-6">
+          <SearchBar value={filters.query} onChange={setQuery} />
+          <FilterChips
+            filters={filters}
+            counts={counts}
+            onTypeToggle={setType}
+            onStatusToggle={setStatus}
+            onTagToggle={setTag}
+            onFavoritesToggle={toggleFavoritesOnly}
+          />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {skillsDataset.repositorios.length > 0 && (
+          <>
+            <SectionHeader
+              title="Repositórios base"
+              count={skillsDataset.repositorios.length}
+            />
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {skillsDataset.repositorios.map((repo) => (
+                <RepoCard key={repo.id} repo={repo} />
+              ))}
+            </div>
+            <Separator className="mt-10" />
+          </>
+        )}
+
+        <SectionHeader title="Skills" count={filteredSkills.length} />
+        {filteredSkills.length === 0 ? (
+          <EmptyState onClearFilters={reset} />
+        ) : (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredSkills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                skill={skill}
+                isFavorite={isFavorite(skill.id)}
+                onFavoriteToggle={handleFavoriteToggle}
+                onClick={setSelected}
+              />
+            ))}
+          </div>
+        )}
+      </main>
+
+      <footer className="border-t border-border mt-10 py-8 text-center text-xs text-muted-foreground/70">
+        <p>Hub de Skills do Claude — curado por João Paulo</p>
+      </footer>
+
+      <SkillModal
+        skill={selected}
+        open={selected !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelected(null);
+        }}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
