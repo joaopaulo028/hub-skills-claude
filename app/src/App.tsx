@@ -104,7 +104,7 @@ function App() {
               title="Repositórios base"
               count={skillsDataset.repositorios.length}
             />
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {skillsDataset.repositorios.map((repo) => (
                 <RepoCard key={repo.id} repo={repo} />
               ))}
