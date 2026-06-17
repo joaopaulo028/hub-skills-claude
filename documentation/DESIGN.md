@@ -1,191 +1,188 @@
 # Design
 
-Referência visual e tokens do sistema de design.
+Referência visual e sistema de tokens do Hub Skills.
+
+> **v0.3.0**: tokens migraram de `docs/styles/tokens.css` (vanilla CSS vars) para `app/src/index.css` (Tailwind v4 `@theme inline` + tokens shadcn). Esta página descreve o vocabulário conceitual e mapeia para as utility classes correspondentes.
 
 ## Inspiração
 
-O layout é uma réplica fiel do **SkillVault** da NoCode StartUp:
+Layout inspirado no **SkillVault** da NoCode StartUp: https://skills-nocode-startup.lovable.app/
 
-🔗 https://skills-nocode-startup.lovable.app/
+Adaptações:
+- Filtros multi-seleção em 3 grupos (tipo, status, domínio) + chip "Favoritas"
+- Cards abrem modal de detalhe em vez de link externo
+- Busca textual sobre nome/descrição/output/cases
+- Favoritos persistidos com toast feedback
 
-Diferenças intencionais do original:
-- Filtros por **tipo** (Nativa/Plugin/Customizada) e **status** (Instalada/Wishlist) em vez de domínios
-- Cards abrem **modal de detalhe** em vez de link externo
-- Busca por nome no header (SkillVault não tem)
+## Sistema de tokens
 
-## Tokens
+Os tokens vivem em `app/src/index.css` em duas zonas:
 
-Todos os valores estão em [`docs/styles/tokens.css`](../docs/styles/tokens.css). Use sempre `var(--token)`, nunca hardcode.
+1. **`:root`**: variáveis OKLCH base do shadcn (background, foreground, primary, etc.)
+2. **`@theme inline`**: aliases que o Tailwind v4 expõe como utility classes (ex: `--color-background` → `bg-background`)
 
-### Paleta — superfícies e texto
+## Paleta — shadcn base (zinc)
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--bg` | `#fafafa` | background da página |
-| `--surface` | `#ffffff` | cards, modal, inputs |
-| `--border` | `#e5e7eb` | borda padrão de cards e inputs |
-| `--border-strong` | `#d4d4d8` | borda em hover |
-| `--text` | `#18181b` | texto principal |
-| `--text-muted` | `#71717a` | texto secundário (descrições) |
-| `--text-soft` | `#a1a1aa` | texto terciário (placeholders, contadores) |
+| Token | Utility | Uso |
+|-------|---------|-----|
+| `--background` | `bg-background` | Background da página (zinc-50 OKLCH) |
+| `--foreground` | `text-foreground` | Texto principal (zinc-950 OKLCH) |
+| `--card` | `bg-card` | Background do `Card` shadcn |
+| `--card-foreground` | `text-card-foreground` | Texto dentro do card |
+| `--muted` | `bg-muted` | Background secundário (chips, badges) |
+| `--muted-foreground` | `text-muted-foreground` | Texto secundário |
+| `--border` | `border` | Borda padrão |
+| `--primary` | `bg-primary` | Chip ativo (zinc-900) |
+| `--primary-foreground` | `text-primary-foreground` | Texto sobre primary |
+| `--ring` | `ring-ring` | Foco visível |
 
-### Paleta — chips de filtro
+## Paleta — tokens semânticos custom
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--chip-bg` | `#ffffff` | chip inativo |
-| `--chip-active-bg` | `#18181b` | chip ativo (preto) |
-| `--chip-active-text` | `#ffffff` | texto do chip ativo |
-| `--chip-count-bg` | `#f4f4f5` | badge de contagem inativo |
-| `--chip-active-count-bg` | `#3f3f46` | badge de contagem ativo |
+Tokens custom adicionados em `@theme inline` para badges e status. Aplicados via `style={{ backgroundColor: 'var(--color-badge-nativa)' }}` por compatibilidade com algumas versões do Tailwind v4.
 
-### Paleta — badges por tipo de skill
+| Token | Cor | Uso |
+|-------|-----|-----|
+| `--color-badge-nativa` / `-foreground` | azul claro / azul escuro | Badge tipo "Nativa" |
+| `--color-badge-plugin` / `-foreground` | roxo claro / roxo escuro | Badge tipo "Plugin" |
+| `--color-badge-customizada` / `-foreground` | laranja claro / laranja escuro | Badge tipo "Customizada" |
+| `--color-status-instalada` / `-foreground` | verde claro / verde escuro | Status dot "Instalada" |
+| `--color-status-wishlist` / `-foreground` | âmbar claro / âmbar escuro | Status dot "Wishlist" |
+| `--color-repo-icon` / `-foreground` | azul muito claro / azul forte | Ícone do RepoCard |
 
-| Tipo | Background | Texto | Cor (hex) |
-|------|-----------|-------|-----------|
-| Nativa | `--badge-nativa-bg` | `--badge-nativa-text` | azul (`#dbeafe` / `#1e40af`) |
-| Plugin | `--badge-plugin-bg` | `--badge-plugin-text` | roxo (`#ede9fe` / `#5b21b6`) |
-| Customizada | `--badge-customizada-bg` | `--badge-customizada-text` | laranja (`#ffedd5` / `#9a3412`) |
-
-### Paleta — status
-
-| Status | Background | Texto | Cor |
-|--------|-----------|-------|-----|
-| Instalada | `--status-instalada-bg` | `--status-instalada-text` | verde (`#dcfce7` / `#166534`) |
-| Wishlist | `--status-wishlist-bg` | `--status-wishlist-text` | amarelo (`#fef3c7` / `#854d0e`) |
-
-### Tipografia
+## Tipografia
 
 | Token | Valor |
 |-------|-------|
-| `--font-sans` | `Inter, system-ui, sans-serif` |
-| `--font-mono` | `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace` |
+| `--font-sans` | `"Inter Variable", system-ui, sans-serif` |
 
-Inter é carregada do Google Fonts (pesos 400/500/600/700) em `index.html`.
+Inter Variable carregada via `@fontsource-variable/inter/index.css` em `main.tsx` (self-hosted, sem CDN externo).
 
-### Raios
+## Hierarquia tipográfica
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--radius-sm` | `6px` | badges, blocos de código, sub-skill tags |
-| `--radius-md` | `10px` | cards |
-| `--radius-lg` | `14px` | modal |
-| `--radius-pill` | `999px` | chips, search input, status dots |
+| Elemento | Tamanho | Peso | Letter-spacing | Componente |
+|----------|---------|------|----------------|------------|
+| Header título | 32px | 700 | -0.02em | `Header.tsx` |
+| Header subtítulo | 14px | 400 | normal | `Header.tsx` |
+| Section title | 11px UPPERCASE | 600 | 0.12em | `SectionHeader.tsx` |
+| Card nome | 15px | 600 | normal | `SkillCard.tsx`, `RepoCard.tsx` |
+| Card descrição | 13px | 400 | normal | `SkillCard.tsx` |
+| Card meta (Output/Cases) | 12px | 400 (label 600) | normal | `SkillCard.tsx` |
+| Badge | 10px UPPERCASE | 700 | 0.08em | `SkillCard.tsx`, `SkillModal.tsx` |
+| Modal título | 22px | 700 | normal | `SkillModal.tsx` |
+| Body padrão | 14px | 400 | normal | base shadcn |
 
-### Sombras
+Valores aplicados via Tailwind: `text-[32px] font-bold tracking-[-0.02em]`, etc.
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--shadow-card` | `0 1px 2px rgba(0,0,0,0.04)` | cards em repouso (sutil) |
-| `--shadow-card-hover` | `0 4px 12px rgba(0,0,0,0.08)` | cards em hover |
-| `--shadow-modal` | `0 20px 60px rgba(0,0,0,0.25)` | modal |
+## Raios e sombras
 
-### Layout
+shadcn calcula raios a partir de `--radius` (0.625rem ≈ 10px):
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--container` | `1120px` | largura máxima do conteúdo central |
+| Utility | Valor | Uso |
+|---------|-------|-----|
+| `rounded-sm` | `calc(--radius - 4px)` | Badges |
+| `rounded-md` | `calc(--radius - 2px)` | Inputs, blocos pequenos |
+| `rounded-lg` | `--radius` | Cards |
+| `rounded-xl` | `calc(--radius + 4px)` | Modal |
+| `rounded-full` | `9999px` | Status dots, chips |
 
-## Tipografia hierárquica
+Sombras nativas Tailwind:
 
-| Elemento | Tamanho | Peso | Letter-spacing |
-|----------|---------|------|----------------|
-| Header título | 32px | 700 | -0.02em |
-| Header subtítulo | 14px | 400 | normal |
-| Section title | 11px UPPERCASE | 600 | 0.12em |
-| Card nome | 15px | 600 | normal |
-| Card descrição | 13px | 400 | normal |
-| Card meta (Output/Cases) | 12px | 400 (label 600) | normal |
-| Badge | 10px UPPERCASE | 700 | 0.08em |
-| Status dot | 10px | 600 | normal |
-| Modal título | 22px | 700 | normal |
-| Body padrão | 14px | 400 | normal |
+| Utility | Uso |
+|---------|-----|
+| `shadow-sm` | Card em repouso |
+| `shadow-md` | Card em hover |
+| `shadow-xl` | Modal (via Dialog primitive) |
 
-## Espaçamento
+## Animações e microinterações
 
-Não há escala formal — usa valores múltiplos de 4 e 8 pixels:
+| Estado | Implementação |
+|--------|---------------|
+| Hover de card | `transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md` |
+| Hover de chip | herdado do `ToggleGroup` shadcn |
+| Modal abrir/fechar | nativo do `Dialog` Radix (fade + slide) |
+| Focus visível | `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring` |
+| Star de favorito click | `active:scale-95 transition-transform` |
+| Toast | sonner default (slide do bottom-right) |
 
-- Gap entre cards: `16px`
-- Gap entre repos: `12px`
-- Padding interno do card: `18px`
-- Padding interno do modal: `32px`
-- Padding do header: `64px 24px 32px`
-- Margin entre seções: `40px`
+Sem dependência externa de animação (sem Framer Motion).
 
-## Estados
+## Layout e grid
 
-### Hover de card de skill
-- Border: `--border-strong`
-- Box-shadow: `--shadow-card-hover`
-- Translate Y: `-1px` (leve elevação)
+| Valor | Aplicação |
+|-------|-----------|
+| `max-w-[1120px]` | Container central |
+| `px-6 pb-16` | Padding lateral e inferior do `<main>` |
+| Skills grid | `grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` |
+| Repos grid | `grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` |
 
-### Hover de chip
-- Border: `--border-strong`
+Breakpoints Tailwind v4:
+- `sm`: ≥ 640px
+- `lg`: ≥ 1024px
 
-### Focus do search
-- Border: `--text` (preto)
-- Box-shadow: anel sutil (`0 0 0 3px rgba(24,24,27,0.08)`)
-
-### Card wishlist
-- Background levemente off-white (`#fdfdfd`)
-- Texto com `opacity: 0.85`
-
-## Responsividade
-
-Breakpoints definidos em `styles/responsive.css`:
-
-| Breakpoint | Skills grid | Repos grid | Header título |
-|------------|-------------|-----------|---------------|
-| Default (>900px) | 3 colunas | 4 colunas | 32px |
-| Tablet (≤900px) | 2 colunas | 2 colunas | 26px |
-| Mobile (≤560px) | 1 coluna | 1 coluna | 26px |
-
-## Anatomia do card de skill
+## Anatomia do `SkillCard`
 
 ```
 ┌─────────────────────────────────┐
-│ [BADGE-TIPO]    [✓ STATUS-DOT] │  ← .skill-card-top
+│ [BADGE-TIPO]            [★]     │  ← CardHeader (badge + favorite)
+│ skill-name                      │  ← h3 (15px/600)
+│ descrição em 2 linhas (muted)   │  ← CardContent
+│ Output: o que faz               │
+│ Cases: cenário-1, cenário-2     │
 │                                 │
-│ skill-name                      │  ← .skill-name (15px/600)
-│ descrição em 2 linhas máximo    │  ← .skill-desc (13px/400, muted)
-│ ─────────────────────────────   │  ← .skill-divider
-│ Output: o que faz               │  ← .skill-meta-row
-│ Cases:  quando usar             │  ← .skill-meta-row
+│ • Instalada                     │  ← CardFooter (status dot pill)
 └─────────────────────────────────┘
-   border 1px / radius 10px
-   padding 18px
-   background white
+   rounded-lg shadow-sm
+   hover:shadow-md hover:-translate-y-0.5
 ```
 
-## Anatomia do modal
+## Anatomia do `SkillModal`
 
 ```
-┌──────────────────────────── × ─┐
-│ [BADGE]  [✓ STATUS]            │
-│                                 │
-│ Skill Name                      │  22px/700
-│ Fonte · v1.0.0                  │  12px muted
-│                                 │
-│ Descrição completa.             │
-│                                 │
-│ OUTPUT                          │  label uppercase soft
-│ O que a skill faz.              │
-│                                 │
-│ CASES                           │
-│ Quando usar.                    │
-│                                 │
-│ COMO USAR                       │
-│ ┌──────────────────────────┐   │
-│ │ /command code block      │   │  mono, fundo escuro
-│ └──────────────────────────┘   │
-│                                 │
-│ INCLUI (14)                     │
-│ [tag] [tag] [tag] [tag]        │
-│                                 │
-│ REPOSITÓRIO                     │
-│ https://github.com/...          │  link sublinhado
-└─────────────────────────────────┘
-   max-width 560px
-   max-height 85vh (scroll vertical)
-   backdrop blur 2px + black 45%
+┌─────────────────────────────── × ─┐
+│ [BADGE-TIPO]                       │
+│ Skill Name (22px/700)              │
+│ Descrição                          │
+│ ───────────────────────            │
+│ OUTPUT                             │  ← h4 uppercase 11px tracking-wide
+│ o que a skill faz                  │
+│                                    │
+│ CASOS DE USO                       │
+│ • caso 1                           │
+│ • caso 2                           │
+│                                    │
+│ COMO USAR                          │
+│ /command                           │
+│                                    │
+│ SUB-SKILLS                         │
+│ • brainstorming                    │
+│ • writing-plans                    │
+│ • ...                              │
+│                                    │
+│ REPOSITÓRIO                        │
+│ https://...  [↗]                   │
+│                                    │
+│ Fonte: X · Versão: Y               │
+└────────────────────────────────────┘
+   max-w-2xl
+   Dialog primitive (Radix)
 ```
+
+## Acessibilidade
+
+- `DialogTitle` sempre presente (requisito Radix)
+- `ToggleGroup` com navegação por setas
+- `Tooltip` no botão de favorito reforça ação para mouse users
+- `aria-label` dinâmico em botões (estado dependente)
+- `role="button"` + `onKeyDown` (Enter/Space) no `SkillCard`
+- Foco visível em todos os interativos
+
+## Onde editar para mudar X
+
+| Quero mudar... | Edito... |
+|----------------|----------|
+| Cor base (zinc → outro) | `app/components.json` `baseColor` + re-run `shadcn init --force` |
+| Cor de badge ou status | `app/src/index.css` (`@theme inline` custom block) |
+| Família de fonte | `app/src/main.tsx` (import) + `app/src/index.css` (`--font-sans`) |
+| Raio padrão | `app/src/index.css` (`:root --radius`) |
+| Largura do container | `app/src/App.tsx` (`max-w-[...]`) |
+| Animação de hover | `app/src/components/SkillCard.tsx` (Tailwind utilities) |
